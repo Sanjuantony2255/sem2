@@ -1,0 +1,361 @@
+Programs to handle data using pandas. exp4
+
+1
+
+
+import pandas as pd
+orders = pd.read_table("http://bit.ly/movieusers")
+print("Overview of dataframe")
+print(orders.head())
+print("Shape: ",orders.shape)
+user_cols = ['user_id','age','gender','occupation','zip_code']
+users = pd.read_table("http://bit.ly/movieusers",sep='|', header=None, names=user_cols)
+print("Dataframe after modifying the default parameter values for read_table:")
+print(users.head())
+
+2
+
+ufo = pd.read_csv("http://bit.ly/uforeports")
+print("Overview of UFO data reports:")
+print(ufo.head())
+#series
+print("City series(sorted):")
+print(ufo.City.sort_values())
+ufo['Location']=ufo.City + ',' + ufo.State
+print("After creating a new 'Location' series:")
+print(ufo.head())
+print("\nCalculate summary statistics:")
+print(ufo.describe())
+print("\nColumn names of ufo dataframe:\n", ufo.columns)
+#rename two of the columns by using the 'rename' method 
+ufo.rename(columns={'Colors Reported':'Colors_Reported','Shape Reported':'Shape_Reported'},inplace=True)
+print("\nColumn name of ufo dataframe after renaming two column names:\n",ufo.columns)
+#rename multiple columns at once
+ufo.drop(['City','State'], axis=1, inplace=True)
+print("\nColumn name of ufo dataframe after removing two columns(city,state):\n",ufo.columns)
+#remove multiple rows at once(axis=0 refers to rows)
+ufo.drop([0,1], axis=0, inplace=True)
+print("\nufo dataframe after deleting first two rows:\n",ufo.head())
+
+3
+
+#read a dataset of top-rated IMDb movies into a dataframe
+movies = pd.read_csv('http://bit.ly/imdbratings')
+print("Dataframe of top-rated IMDb movies:")
+print(movies.head())
+print("\nDifferent ways to filter rows of a pandas Dataframe by column value:")
+print("Example: Filter rows to only show movies with a duration of atleast 200 minutes")
+print("1.Using for loop:-")
+#create a list in which elements refers to a dataframe row: True if the row satisfies the condition, False otherwise
+booleans = []
+for length in  movies.duration:
+    if length>=200:
+        booleans.append(True)
+    else:
+        booleans.append(False)
+is_long = pd.Series(booleans)
+print(is_long.head())
+print("2.Broadcasting:-")
+print(movies[movies.duration>=200])
+print("3.Using loc method:-")
+print(movies.loc[movies.duration>=200])
+
+4
+
+#read a dataset of Chipotle orders into a DataFrame
+orders = pd.read_table('http://bit.ly/chiporders')
+print("Dataframe:")
+print(orders.head())
+print("\nString methods in pandas:-")
+print("\nitem_name series(in uppercase):")
+print(orders.item_name.str.upper().head())
+print("\nCheck for a substring'Chicken' in the given dataframe:")
+print(orders[orders.item_name.str.contains('Chicken')].head())
+print()
+#many pandas string methods support regular expressions(regex)
+print("replace []")
+print(orders.choice_description.str.replace(r"[\[\]]",'',regex=True).head())
+print()
+print("Examine the data type of each Series:")
+print(orders.dtypes)
+print()
+print("Dataframe after replacing 'S' and converting string to float of 'item_price' series:")
+print(orders.item_price.str.replace('$',"").astype(float))
+
+5
+
+#read a dataset of Chipotle orders into a DataFrame
+drinks = pd.read_table('http://bit.ly/drinksbycountry',sep=',')
+print("Dataframe:")
+print(drinks.columns)
+print()
+print("Mean beer servings across the entire dataset:",drinks.beer_servings.mean())
+print("Mean beer servings just for countries in Africa:",drinks[drinks.continent=='Africa'].beer_servings.mean())
+print()
+print("Aggregate functions used with groupby:")
+print()
+print("Mean beer servings for each continent:",drinks.groupby('continent').beer_servings.mean())
+print("Maximum beer servings for each continent:",drinks.groupby('continent').beer_servings.max())
+print("Multiple aggregation functions can be applied simultaneously:")
+print(drinks.groupby('continent').beer_servings.agg(['count','mean','min','max']))
+#specifying a column to which the aggregation function should be applied is not required 
+drinks.groupby('continent').mean(numeric_only=True)
+#allow plots to appear in the notebook
+%matplotlib inline
+#side-by-side bar plot of the DataFrame directly above
+drinks.groupby('continent').mean(numeric_only=True).plot(kind='bar')
+drinks.groupby('continent').mean(numeric_only=True).plot(kind='bar')
+
+6
+
+ufo = pd.read_csv('http://bit.ly/uforeports')
+print(ufo.isnull().tail())
+print(ufo.notnull().tail())
+print(ufo.isnull().sum())
+print(ufo.shape)
+# if 'all' values are missing in a row, then drop that row (none are dropped in this case)
+print(ufo.dropna(how='all').shape)
+print(ufo.dropna (subset=['City', 'Shape Reported'], how='any').shape) 
+print(ufo['Shape Reported'].value_counts().head())
+#fll in missing values with a specifed value
+print(ufo['Shape Reported'].fillna(value='VARIOUS', inplace=True))
+# confrm that the missing values were flled in
+print(ufo['Shape Reported'].value_counts().head())
+drinks = pd.read_csv('http://bit.ly/drinksbycountry')
+print(drinks.head())
+# every DataFrame has an index (sometimes called the "row labels") 
+print(drinks.index)
+# index and columns both default to integers if you don't defne them 
+print(pd.read_table('http://bit.ly/movieusers', header=None, sep='|').head())
+# identifcation: index remains with each row when fltering the DataFrame
+print(drinks [drinks.continent== 'South America'])
+# selection: select a portion of the DataFrame using the index 
+print(drinks.loc[23,'beer_servings'])
+
+# set an existing column as the index 
+print(drinks.set_index('country', inplace=True))
+print(drinks.head())
+# you can interact with any DataFrame using its index and columns
+print(drinks.describe().loc['25%', 'beer_servings'])
+# access the Series index
+print(drinks.continent.value_counts().index)
+# access the Series values
+print(drinks.continent.value_counts().values)
+# any Series can be sorted by its values
+print(drinks.continent.value_counts().sort_values())
+people = pd.Series([3000000, 85000], index=['Albania', 'Andorra'], name='population')
+# concatenate the 'drinks' DataFrame with the 'population' Series (aligns by the index)
+print(pd.concat([drinks, people], axis=1).head())
+
+7
+
+ufo = pd.read_csv('http://bit.ly/uforeports')
+print("Dataframe: ")
+print(ufo.head(3))
+print()
+print("Selecting multiple rows and columns from a pandas Data Frame using 'loc': ") 
+print()
+#loc method is used to select rows and columns by label
+print("First row, all columns: ")
+print(ufo.loc[0, :])
+print()
+print("First 3 rows, all columns: ")
+print(ufo.loc[[0, 1, 2], :])
+print()
+#rows 0 through 2 (inclusive), all columns
+print(ufo.loc[0:2, :])
+print()
+#this implies "all columns", but explicitly stating "all columns" is better
+print(ufo.loc[0:2])
+print()
+print("First 3 rows, only one column 'City': ")
+print(ufo.loc[0:2, 'City'])
+print()
+print("First 3 rows, two columns 'City' and 'State': ")
+print(ufo.loc[0:2, ['City', 'State']])
+print()
+print("Accomplish the same thing using double brackets: ")
+#using 'loc' is preferred since it's more explicit
+print(ufo[['City', 'State']].head(3))
+print()
+print("First 3 rows, columns 'City' through 'State': ") 
+print(ufo.loc[0:2, 'City':'State'])
+print()
+print("Accomplish the same thing using 'head' and 'drop': ") 
+print(ufo.head(3).drop('Time', axis=1))
+print()
+print("Rows in which the 'City' is 'Oakland', column 'State': ") 
+print(ufo.loc[ufo.City=='Oakland',
+'State'])
+print()
+print("Accomplish the same thing using 'chained indexing':")
+#using 'loc' is preferred since chained indexing can cause problems
+print(ufo[ufo.City=='Oakland'].State)
+print()
+print("Selecting multiple rows and columns from a pandas DataFrame using 'iloc': ")
+print()
+print("Rows in positions 0 and 1, columns in positions 0 and 3: ")
+print(ufo.iloc[[0, 1], [0,3]])
+print()
+print("Rows in positions 0 through 2 (exclusive), columns in positions 0 through 4 (exclusive): ")
+print(ufo.iloc[0:2, 0:4])
+print()
+print("Rows in positions 0 through 2 (exclusive), all columns: ")
+print(ufo.iloc[0:2, :])
+print()
+
+8
+
+print("Creating dummy variables in pandas: ")
+print()
+# read the training dataset from Kaggle's Titanic competition 
+train = pd.read_csv('http://bit.ly/kaggletrain')
+print("Dataframe: ")
+print(train.head())
+print()
+#use 'get_dummies' to create one column for every possible value 
+print(pd.get_dummies(train.Sex).head())
+print()
+# drop the frst dummy variable ('female') using the 'iloc' method
+print(pd.get_dummies(train.Sex).iloc[:, 1:].head())
+print()
+# add a prefx to identify the source of the dummy variables 
+print(pd.get_dummies(train.Sex,prefix='Sex').iloc[:, 1:].head())
+print()
+# use 'get_dummies' with a feature that has 3 possible values
+print(pd.get_dummies(train.Embarked, prefix='Embarked').head(10))
+print()
+# drop the frst dummy variable ('C')
+print(pd.get_dummies(train.Embarked, prefix='Embarked').iloc[:, 1:].head(10))
+print()
+#0, 0 means C 1, 0 means Q 0, 1 means S
+#reset the DataFrame
+train = pd.read_csv('http://bit.ly/kaggletrain') 
+print("Dataframe: ") 
+print(train.head()) 
+print()
+# pass the DataFrame to 'get_dummies' and specify which columns to dummy (it drops the original columns)
+print(pd.get_dummies(train, columns=['Sex', 'Embarked']).head())
+print()
+# use the 'drop_first' parameter (new in pandas 0.18) to drop the first dummy variable for each feature
+print(pd.get_dummies(train, columns=['Sex', 'Embarked'], drop_first=True).head())
+
+9
+
+import numpy as np
+# create a DataFrame from a dictionary (keys become column names, values become data)
+#bfill() instead.
+df = pd.DataFrame({'id':[100, 101, 102], 'color': ['red', 'blue', 'red']}, columns=['id', 'color'],
+index=['a','b', 'c'])
+print("DataFrame from a dictionary:")
+print(df)
+print()
+# create a DataFrame from a list of lists (each inner list becomes a row)16 29 29
+print("DataFrame from a list of lists: ")
+print(pd.DataFrame([[100, 'red'], [101, 'blue'], [102, 'red']], columns=['id', 'color']))
+print()
+# create a NumPy array (with shape 4 by 2) and fll it with random numbers between0&1 
+arr = np.random.rand(4, 2)
+print("Numpy array: ")
+
+print(arr)
+print()
+print("DataFrame from the above defned NumPy array: ")
+print(pd.DataFrame(arr, columns=['one', 'two']))
+print()
+print("DataFrame of student IDs (100 through 109) and test scores (random integers between 60 and 100: ")
+print(pd.DataFrame({'student':np.arange(100, 110, 1), 'test':np.random.randint(60, 101, 10)})) 
+print()
+#'set_index' can be chained with the DataFrame constructor to select an index
+print(pd.DataFrame({'student':np.arange(100, 110, 1), 'test':np.random.randint(60,101,10)}).set_index('student'))
+print()
+# create a new Series using the Series constructor
+s = pd.Series(['round', 'square'], index=['c', 'b'], name='shape')
+print(s)
+print()
+# concatenate the DataFrame and the Series (use axis=1 to concatenate columns)
+print(pd.concat([df, s], axis=1))
+
+10
+
+#change display options in pandas
+# read a dataset of alcohol consumption into a DataFrame 
+drinks = pd.read_csv("http://bit.ly/drinksbycountry")
+print("Shape:",drinks.shape)
+print()
+# check the current setting for the 'max_rows' option 
+pd.get_option('display.max_rows')
+print(drinks)
+print()
+#overwrite the current setting so that all rows will be displayed
+pd.set_option('display.max_rows',2)
+print(drinks)
+print()
+# reset the 'max_rows' option to its default 
+pd.reset_option("display.max_rows")
+print(drinks)
+print()
+# add two meaningless columns to the drinks DataFrame
+drinks['x'] = drinks.wine_servings*1000
+drinks['y'] = drinks.total_litres_of_pure_alcohol* 1000 
+print(drinks.head())
+print()
+# use a Python format string to specify a comma as the thousands separator
+pd.set_option("display.float_format", "{:}".format)
+print(drinks.head())
+print()
+# read the training dataset from Kaggle's Titanic competition into a DataFrame
+train = pd.read_csv("http://bit.ly/kaggletrain")
+# an ellipsis is displayed in the 'Name' cell of row 1 because of the 'max_colwidth' option
+pd.get_option("display.max_colwidth")
+print(train.head())
+print()
+#overwrite the current setting so that more characters will be displayed
+pd.set_option('display.max_colwidth', 1000)
+print(train.head())
+print()
+
+11
+
+# read a dataset of UFO reports into a DataFrame 
+print("Inplace parameter in pandas: ")
+print()
+ufo = pd.read_csv('http://bit.ly/uforeports') 
+print("Dataframe: ") 
+print(ufo.head())
+print("Shape:",ufo.shape)
+print()
+# remove the 'City' column (doesn't affect the DataFrame since inplace=False) 
+ufo.drop('City',axis=1)
+# confrm that the 'City' column was not actually removed
+print(ufo.columns)
+print()
+# remove the 'City' column (does affect the DataFrame since inplace=True) 
+ufo.drop('City',axis=1, inplace=True)
+# confrm that the 'City' column was actually removed
+print(ufo.columns)
+print()
+print(ufo.shape)
+print()
+#drop a row if any value is missing from that row (doesn't affect the DataFrame since inplace=False)
+ufo.dropna(how='any')
+# confrm that no rows were actually removed
+print(ufo.shape)
+print()
+print("Using an assignment statement instead of the 'inplace' parameter: ")
+ufo = ufo.set_index('Time')
+print(ufo.tail(3))
+print()
+print("Fill missing values using 'backward fill' strategy: ")
+# doesn't affect the DataFrame since inplace=False
+print(ufo.fillna(method='bfill').tail(3))
+print()
+print("Dataframe: ")
+print(ufo.tail(3))
+print()
+print("Fill missing values using 'forward fill' strategy: ") 
+#doesn't affect the DataFrame since inplace=False
+print(ufo.fillna(method='ffill').tail(3))
+print()
+print("Dataframe: ")
+print(ufo.tail(3))

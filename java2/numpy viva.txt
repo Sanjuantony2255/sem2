@@ -1,0 +1,140 @@
+DATA SCIENCE LAB VIVA QUESTIONS & ANSWERS
+
+1. numpy
+
+      .numpy stands numerical python.
+
+      .It is an open-source python library that provides support for scientific and mathematical computing.
+
+      .It aims to provide an array object that is upto 50x faster than traditional python lists.
+
+      .The array object in numpy is called ndarray.
+
+2. array()
+
+      .create numpy ndarray object by using the array() function.
+
+      .numpy array is a multi-dimensional data structure that is the core of scientific computing in python.
+
+      .All values in an array are homogenous(of the same data type).
+
+3. shape()
+
+      .The np.shape() gives a return of two-dimensional array in a pair of rows and columns tuple(rows,columns).
+
+      .The shape of an array is the number of elements in each dimension.
+
+4. zeros() 
+
+      .The numpy zeros() function in python is used to create an array of specified shapes and types,with all elements initialized to                           
+       zero.
+
+      .The zeros() function takes three arguments and returns the array filled with zeros of floating values by default.
+
+      .This function is used to generate an array containing zeros.
+
+5. ones()
+
+      .The numpy.ones() function is used to create a new array of given shape and type,filled with ones.
+  
+      .The ones() function is useful in situations where we need to create an array of ones with a specific shape and datatype,for example in matrix operations or in initializing an array
+       with default values.
+
+6. full()
+
+      .The numpy.full() function is used to create a new array of the specified shape and type,filled with a specified value.
+
+      .It return a new array of given shape and type,filled with fill_value.
+
+7. eye()
+
+      .eye() allows users to create an identity matrix of a specific size.
+
+      .The eye() method creates a 2D array with 1s on the diagonal and 0s elsewhere.
+
+8. random.rand()
+
+      .Create an array of the given shape with random values from a uniform distribution over[0,1].
+
+      .It gives random values in a given shape.
+9. random.random()
+
+      . The random is a module present in the NumPy library. 
+       
+      . This module contains the functions which are used for generating random numbers.
+10. arange()
+
+      . NumPy arange() is one of the array creation routines based on numerical ranges.
+
+      . It creates an instance of ndarray with evenly spaced values and returns the reference to it. 
+
+11. add()
+
+      . add() is a function that performs element-wise addition on NumPy arrays.
+
+      . numpy.add() function is used when we want to compute the addition of two arrays.
+
+12. subtract()
+ 
+      . The np.subtract() function returns an array containing the result of element-wise subtraction between two arrays or between an array and a scalar value.
+
+13. multiply()
+
+      . numpy.multiply() function is used when we want to compute the multiplication of two array. 
+
+14. sqrt()
+
+      . In NumPy, the . sqrt() method is used to calculate the positive square root of a number or the elements of an array. 
+
+15. dot()
+
+      . In NumPy, the . dot() method computes the dot product of two arrays. 
+
+      . For 1-D arrays, it provides a scalar value. When both arrays are 2-D, it performs matrix multiplication, resulting in a new 2-D array.
+
+16. sum()
+
+      . The numpy.sum() function is available in the NumPy package of Python.
+
+      . This function is used to compute the sum of all elements, the sum of each row, and the sum of each column of a given array.
+
+17. reshape()
+
+      . Reshaping means changing the shape of an array.
+
+      . The shape of an array is the number of elements in each dimension. By reshaping we can add or remove dimensions or change number of elements in each dimension.
+
+18. Scipy
+
+      . SciPy is a scientific computation library that uses NumPy underneath.
+
+      . SciPy stands for Scientific Python. It provides more utility functions for optimization, stats and signal processing. 
+     
+      . Like NumPy, SciPy is open source so we can use it freely.
+
+19. linalg
+
+      . The numpy. linalg module provides a basic set of linear algebra functions, such as matrix multiplication, matrix inversion, determinant calculation, 
+        eigenvalues, and eigenvectors. On the other hand, the scipy.
+
+      . linalg module is an extension of numpy.
+
+20. svd
+
+      .  svd() function is used to compute the factor of an array by Singular Value Decomposition.
+
+      .  Performs the Singular Value Decomposition (SVD) on a matrix, breaking it down into singular vectors and singular values.
+
+21. sigma()
+
+     . A sigma (∑) is a Summation operator.
+
+     . It evaluates a certain expression many times, with slightly different variables, and returns the sum of all those expressions.
+
+22. diag()
+
+     . The diag() method either creates a new array with the given 1D array as its diagonal elements or it extracts the diagonal from the given ndarray.
+
+23. pinv()
+
+     .  The 'pinv()' function returns the Moore-Penrose Pseudo Inverse of a matrix. The 'inv()' function executes at faster speed. The 'pinv()' function starts at slower speed.

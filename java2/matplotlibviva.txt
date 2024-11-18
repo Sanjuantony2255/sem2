@@ -1,0 +1,58 @@
+1.What is Matplotlib?
+
+Matplotlib is a Python library for creating visualizations of data. It provides tools for creating a wide range of static, animated, and interactive visualizations in Python, including line plots, bar plots, scatter plots, and more.
+
+2.How do you create a basic plot in Matplotlib?
+
+Import the Matplotlib library using import matplotlib.pyplot as plt . Use the plot function to plot some data.
+
+3.How do you customize a plot in Matplotlib?
+
+Changing the axis labels and plot title
+Changing the color and style of the plot
+Adding a legend
+
+4.How do you create a scatter plot in Matplotlib?
+
+To create a scatter plot in Matplotlib,use the scatter function.
+ For example:
+
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3]
+y = [2, 4, 6]
+
+plt.scatter(x, y)
+plt.show()
+
+This will create a scatter plot with the data points (1, 2), (2, 4), and (3, 6).
+
+5.What is legend in Matplotlib?
+
+A legend is a Matplotlib function used to describe elements that make up a graph.
+
+6.What is the title() in Matplotlib?
+
+The Matplotlib title() function is used to specify titles to the 2D graphs plotted using matplotlib. pyplot.
+
+7.What is show() in Matplotlib?
+
+The show() function in pyplot module of matplotlib library is used to display all figures.
+
+8.What is plot() in Matplotlib?
+
+The plot() function is used to draw points (markers) in a diagram.
+
+By default, the plot() function draws a line from point to point.
+
+9.What is a subplot in Matplotlib?
+
+subplots() is a powerful function in Python that allows users to create a grid of subplots within a single figure. 
+This function is a part of the Matplotlib library, which is widely used for data visualization in Python.
+
+10.What does PIL do in Python?
+
+The PIL format, short for Python Imaging Library, is a powerful library in Python that allows users to open, manipulate, and save various image file formats.
+
+
+

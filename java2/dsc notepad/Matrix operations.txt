@@ -1,0 +1,155 @@
+Matrix operations (using vectorization) and transformation using python and SVD using python.
+
+1
+
+import numpy as np
+a = np.array([1, 2, 3]) # Create a rank 1 array
+print("One dimensional array a = ",a)
+b = np.array([[1,2,3],[4,5,6]])
+print("Two dimensional array b = ",b)
+print("Size of the array: ",a.shape)
+print("Element at indices 0,1,2: ",a[0], a[1], a[2])
+a[0] = 5 # Change an element of the array
+print("Array after changing the element at index 0: ",a)
+a = np.zeros((2,2)) # Create an array of all zeros
+print("An array of all zeros: ",a)
+b = np.ones((1,2)) # Create an array of all ones
+print("An array of all ones: ",b)
+c = np.full((2,2), 7) # Create a constant array
+print("A constant array: ",c)
+d = np.eye(2) # Create a 2x2 identity matrix
+print("A 2*2 identity matrix : ",d)
+e = np.random.random((2,2)) # Create an array filled with random values
+print("An array with random values: ",e)
+
+2
+
+import numpy as np
+print("Array indexing: slicing")
+al = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])
+print("al = ",al)
+b=al[:2, 1:3]
+print("Subarray consisting of first two rows and columns 1 and 2: ",b)
+b=al[1:2,:]
+print("Subarray consists of second row: ",b)
+print("Accessing columns: ")
+b=al[:,1]
+print(b,b.shape)
+c=al[:1:2]
+print(c,c.shape)
+print("Array integer indexing: ")
+a2 = np.array([[1,2], [3, 4], [5, 6]])
+print("a2 = ",a2)
+print("Example of array integer indexing: ",a2[[0, 1, 2], [0, 1, 0]])
+# When using integer array indexing, you can reuse the same element from the source #array
+print("a2[[0, 0], [1, 1]]D")
+#Equivalent to the previous integer array indexing example
+print(np.array([a2[0, 1], a[0, 1]]))
+a3 = a = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])
+print("a3 = ",a3)
+# Create an array of indices
+b = np.array([0, 2, 0, 1])
+print("b = ",b)
+# Select one element from each row of a using the indices in b
+print("a3",a3[np.arange(4), b])
+# Mutate one element from each row of a using the indices in b
+a3 [np.arange(4), b]+= 10
+print("a3 = ",a3)
+print("Boolean array indexing: ")
+a = np.array([[1,2], [3, 4], [5, 6]])
+print("a = ",a)
+bool_idx= (a>2)
+print("Elements greater than 2: ",a[bool_idx])
+
+3
+
+import numpy as np
+x = np.array([[1,2], [3, 4]], dtype=np.float64)
+y = np.array([[6,9], [4, 4]], dtype=np.float64)
+print("x = ",x)
+print("y=",y)
+print("Element wise addition: ",np.add(x, x))
+print("Element wise subtraction: ",np.subtract(x, y))
+print("Element wise multiplication: ",np.multiply(x, y))
+print("Element wise square root of x: ",np.sqrt(x))
+print("Matrix multiplication: ",np.dot(x, y))
+print("Sum of all elements of matrix x: ",np.sum(x))
+print("Sum of elements in each column of matrix y: ",np.sum(y,axis=0))
+print("Sum of elements in each row of matrix y: ",np.sum(y,axis=1)) 
+print("Transpose of matrix x: ",x.T)
+
+4
+
+import numpy as np
+print("Example for broadcasting: ")
+v=np.array([1,2,3])
+w=np.array([4,5])
+print("v = ",v)
+print("w = ",w)
+print("Outer product of above vectors: ")
+print(np.reshape(v,(3,1))*w)
+x=np.array([[1,2,3],[4,5,6]])
+print("x = ",x)
+print("Resultant matrix after adding the vector x to each row of matrix v: ")
+print(x+v)
+print("Example for broadcasting fails: ")
+print("Adding the vector x to each column of matrix w will generate an error") 
+print("Solution: Reshape the matrix w then the result will be: ")
+print(x+np.reshape(w, (2,1)))
+
+5
+
+from numpy import array
+from scipy.linalg import svd
+A = array([[1, 2], [3, 4], [5, 6]])
+print("A",A)
+print("Shape of array A: ",A.shape)
+print("")
+U, s, VT=svd(A)
+print("U",U)
+print("Shape of matrix U: ", U.shape)
+print("")
+print("Sigma(diagonal matrix), s = ",s)
+print("Shape of matrix sigma: ",s.shape) 
+print("")
+print("Transpose Matrix, VT=",VT)
+print("Shape of matrix VT: ",VT.shape)
+
+6
+
+from numpy import array,diag,dot,zeros
+from scipy.linalg import svd
+A= array([[1,2],[3,4],[5,6]])
+print("A =",A)
+print("Shape of matrix A ",A.shape)
+U,s,VT=svd(A)
+print("U=",U)
+print("Shape of matrix U",U.shape)
+print("Sigma diagonal matrix s=",s)
+print("Shape of matrix s",s.shape)
+print("VT =",VT)
+print("Shape of diagonal matrix",VT.shape)
+sigma=zeros((A.shape[0],A.shape[1]))
+sigma[:A.shape[1],:A.shape[1]]=diag(s)
+B=U.dot(sigma.dot(VT))
+print("Reconstructed matrix:",B)
+
+7
+
+#svd for pseudoinverse
+from numpy import array,diag,zeros
+from numpy.linalg import svd 
+from scipy.linalg import pinv
+
+A = array([[1,2],[3,4],[5,6]])
+print("A=",A)
+print("Pseudoinverse of matrix A calculated by function pinv is:")
+print(pinv(A))
+
+U,s,VT = svd(A)
+d = 1.0/s
+D = zeros(A.shape)
+D[:A.shape[1],:A.shape[1]] = diag(d)
+B = VT.T.dot(D.T).dot(U.T)
+print("Pseudoinverse of matrix A calculated by using svd is:")
+print(B)

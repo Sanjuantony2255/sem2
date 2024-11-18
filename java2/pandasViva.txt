@@ -1,0 +1,262 @@
+1. What is Pandas package?
+Answer: Pandas is a Python library that helps you work with data in a simple way, allowing you to organize and analyze it using tables called DataFrames, similar to spreadsheets. It makes tasks like cleaning data, calculating statistics, and visualizing results much easier for anyone.
+
+2. What does pd.read_table() do?
+Answer: The pd.read_table() function reads a file in table format into a DataFrame. By default, it assumes tab (\t) as the delimiter.
+
+3.What is the use of head()?
+Answer: You can use the .head() method on a DataFrame to display the first five rows by default.
+
+4.What is the purpose of the shape attribute in Pandas?
+Answer: The shape attribute returns a tuple representing the number of rows and columns (Dimension)in the DataFrame.
+
+5.Why do we use the sep parameter?
+Answer: The sep parameter specifies the delimiter used in the file.  sep='|' is used to indicate that columns are separated by a pipe symbol.
+eg: pd.read_table('url',sep='|',header=None)
+
+  >>   dataframe.index   #gives row numbers/names
+  >>   dataframe.columns #gives colmn numbers/names
+  
+                       Program-2:-
+
+6. How do you read a CSV file into a Pandas DataFrame? (or) What does read_csv() do?
+Answer: You use the pd.read_csv() function to read a CSV file into a DataFrame.
+  Syntax: dataframe = pd.read_csv("file_path")
+
+7. How do you sort a Series(list of data)in Pandas?
+Answer: You can use the .sort_values() method to sort a Series in ascending order by default.
+Syntax: Series.sort_values()
+
+8.What is the use of describe() method in pandas?
+Answer: Used to generate a summary of statistics for a Series or DataFrame. It provides key information such as count, mean, standard deviation, minimum, maximum, and quartiles for numerical data.To quickly understand the distribution and key characteristics of your dataset.
+Syntax: DataFrame.describe()
+
+9. dataframe.columns  => prints list containing names of each columns in the dataframe/dataset.
+
+10.How can you rename columns in a DataFrame?
+Answer: The .rename() method lets you rename columns by specifying a dictionary that maps old names to new names. 
+Use inplace=True to modify the DataFrame directly.
+Default: inplace= False => returns a cooy of dataframe after renaming
+Syntax: DataFrame.rename(columns={'old_name':'new_name'}, inplace=True)
+
+11. How do you delete multiple columns from a DataFrame?
+Answer: Use the .drop() method with axis=1 to delete columns, and specify the columns in a list. Set inplace=True to apply the changes to the original DataFrame.
+Syntax: DataFrame.drop(['column1', 'column2'], axis=1, inplace=True)
+              axis=1 (column)....axis=0 (row)
+12.How do you delete rows in a DataFrame?
+Answer: The .drop() method with axis=0 can delete specific rows based on their index.
+Syntax: DataFrame.drop([row_index1, row_index2,..etc], axis=0, inplace=True)
+
+
+13.What is a series in  pandas?
+Ans: A Series is a one-dimensional array-like object that can hold data of any type (integers, floats, strings, etc.) and is similar to a column in a DataFrame
+
+                       Program-3:-
+                       
+14. Ways to filter rows based on a column:-
+Answer:  3 ways;
+  (i) For Loop: iterate thru that column, and apoend True or False value to a new List acc.to condition.
+ (ii) Brodcasting: select only those rows which satisfy condition.(syntax given below)
+(iii) LoC method: Similar as broadcast. (Difference =17th qn)
+
+  
+15. What does broadcasting mean in the context of filtering a DataFrame?
+Answer: Broadcasting allows you to apply conditions directly on DataFrame columns to filter rows without using a loop.
+Syntax: filtered_df = DataFrame[DataFrame['column'] condition]
+
+16. How do you use the loc method for filtering in a DataFrame?
+Answer: The .loc method is used to filter rows based on a condition while preserving the DataFrame structure.
+Syntax: DataFrame.loc[DataFrame['column'] condition]
+
+17. Difference between Broadcasting & Loc method?
+Answer: Broadcasting allows you to perform calculations on arrays of different sizes by automatically adjusting their shapes, making it easy to do math across data without extra steps. 
+        In contrast, .loc is a method in Pandas used to access and modify specific rows and columns in a DataFrame using their labels, letting you easily select and change data.
+
+                       Program-4:-
+
+18. How can you convert all strings in a Series to uppercase?
+Answer: Use the .str.upper() method to convert all string entries in a Series to uppercase.
+Syntax: Series.str.upper()
+
+19. How can you check if a substring exists in a Series of strings?
+Answer: You can use the .str.contains() method to check for the presence of a substring in each string of the Series.
+Syntax: Series[Series.str.contains('substring')]
+
+20. How do you replace specific characters in a Series?
+Answer: Use the .str.replace() method to replace specified characters or substrings with new values.
+Syntax: Series.str.replace('old', 'new')
+
+21. What does the regex=True parameter do in the replace method?
+Answer: The regex=True parameter allows the use of regular expressions for pattern matching in the string replacement operation.
+-write regex expressions as-  r"regex"
+
+eg: Series.str.replace(r"[\[\]]",'',regex=True)
+    regex is [\[\]] which means, find ocurence of [ or ] .
+
+22.How can you convert a string Series to a float Series after removing characters?
+Answer: You can first use .str.replace() to remove unwanted characters and then use .astype(float) to convert the Series to float type.
+Syntax: Series.str.replace('char', '').astype(float)
+      -.astype(newtype)=converts to new dtype.
+      
+23. What will happen if you try to convert a Series containing non-numeric strings to float?
+Answer: A ValueError will be raised if any string cannot be converted to a float, indicating that the conversion is invalid.
+
+                    Program-5:-
+                    
+24.What is a dataframe?
+Ans: DataFrame is a two-dimensional table-like structure in Pandas, consisting of rows and columns. Each column can contain different types of data (like numbers and text), and both rows and columns can be labeled. It’s commonly used for data manipulation and analysis, making it easy to work with structured data.
+
+25. How do you calculate the mean of a specific column in a DataFrame?
+Answer: Use the .mean() method on the column to calculate its average.
+Syntax: DataFrame['column_name'].mean()
+
+26. What is the purpose of groupby in Pandas?
+Answer: The groupby method is used to group the DataFrame based on one or more columns, allowing for aggregate operations on each group.
+
+27.How can you apply multiple aggregation functions at once?
+Answer: Use the .agg() method after groupby() to apply multiple aggregation functions simultaneously.
+
+      -agg([count,max,min,etc]) =>. multiple agg.funcs. together..
+      
+28.How can you visualize data from a DataFrame?
+Answer: Use the .plot() method to create visualizations like bar plots from the DataFrame.
+ eg: .plot(kind="bar"). <= for Bar plots..
+ 
+29. What is the purpose of the %matplotlib inline command?
+Answer: It allows plots to be displayed inline within a Jupyter notebook.(rendered as static images below the code cells instead of opening in a separate window.)
+
+                    Program-6:-
+                  
+       print(dataframe.isnull() ) => rows with missing val.
+       print(datafram.notnull() ) => rows with no nulls..
+       
+30. How can you drop rows with missing values in specific columns?
+Answer: Use dropna(subset=['column1', 'column2'], how='any') to remove rows with any missing values in the specified columns.
+Syntax: DataFrame.dropna(subset=['col1', 'col2'], how='any')
+
+   (i) subset: This specifies which columns to consider when looking for missing values
+  (ii) how: This determines how to drop rows based on the presence of NaNs:
+         'any' (default): Drops a row if any specified column contains a NaN.
+         'all': Drops a row only if all specified columns contain NaNs.
+
+
+31. How can you fill missing values in a Series?
+Answer: Use the .fillna() method to replace missing values with a specified value.
+Syntax: (a)Series.fillna(value='someValue')
+        (b)Series.fillna(method="bfill"/"ffill")
+        for Timeseries data;
+    ffill: Propagates the last valid value forward to fill NaNs.
+    bfill: Propagates the next valid value backward to fill NaNs.
+
+     
+32. What is the difference between using loc and iloc?
+Answer: loc is label-based indexing, while iloc is integer-based indexing for selecting rows and columns.
+       eg: Dataframe.loc(3,'colname') #value of colname at row number 3
+       
+33.How can you select a range of rows and columns using iloc?
+Answer: Use a slice (e.g., 0:3) for rows and columns in iloc.
+Syntax: DataFrame.iloc[0:3, 0:4]  (rows 0to3 & columns 0to4) (InCLusive)
+
+34. What does set_index() do?
+Answer: sets existibg column as index(to identify row)..
+   eg:  Dataframe.set_index('colname',inplace=True, drop=False)
+   def drop=True;  deletes column after setting it as index(no repeted cols)
+   
+   
+   
+                      Program-7:-
+34. chained indexing vs loc indexing;
+Answer:  
+eg:   df[df['column1'] > 10]['column2']    (chained)  
+      df.loc[df['column1'] > 10,'column2'] (loc)
+      
+      chained may cause unexpected problems like: Ambiguity,warnings, performance issues, and difficulties in debugging.
+  
+35. indexing/selecting multiple rows and/or cols using 'iloc' :-
+Amswer: using Slice; 
+
+      df.iloc[0:2,0:4]      #rows 0 to 2 & columns 0 to 4 (inclusive)
+      df.iloc[[0,2],[0,4]]  #rows 0 & 2 only, columns 0&4 only..
+      
+                      Program-8:-
+                      
+36.What is the purpose of creating dummy variables in pandas?
+Answer: Dummy variables convert categorical variables into a numerical format suitable for machine learning models.Use the pd.get_dummies() function to create dummy variables for a specified column.
+Syntax: pd.get_dummies(DataFrame['column_name'],prefix='something')
+  eg.: get_dummies(df['Gender'],prefix='gen')
+    
+   gives output with 2 new columns as;
+   
+          Name Gender  gen_Male gen_Female
+          A     Male      1         0
+          B     Female    0         1
+          C     Male      1         0
+
+
+37. Using drop_first parameter of get_dummies..
+Answer: reduce redundancy by dropping First dummy column.
+      eg: get_dummies(df['Gender'],prefix='gen',drop_first=True)
+      o/p:-
+         Name  Gender  gen_Female
+         A     Male          0
+         B     Female        1
+         C     Male          0
+         
+      
+      
+                     Program-9:-
+                     
+37.How can you create a DataFrame from a dictionary in pandas?
+Answer: Use pd.DataFrame() with a dictionary where keys become column names and values become data.
+Syntax: df = pd.DataFrame({'column1': [data], 'column2': [data]})
+
+38. Creating dataframe from a list of lists?
+Amswer: each inner list becomes a whole row.
+Syntax: df = pd.Dataframe([['A',101],['B',102]..], columns= ['name','roll'])
+
+39.How can you create a NumPy array filled with random numbers?
+Answer: Use np.random.rand() to generate an array with random numbers between 0 and 1.
+Syntax: arr = np.random.rand(rows, columns)
+             random.randint(start,stop,step) #random integers between start&stop.
+             
+
+40.How can you create a pandas Series using the Series constructor?
+Answer: Use pd.Series() to create a Series, specifying data and index.
+Syntax: s = pd.Series(['data1', 'data2'], index=['index1', 'index2'])
+
+
+                     Program-10:-
+                     
+41. display_maxrows in Pandas?
+Answer:
+     display.max_rows in Pandas is Option that sets how many rows of a DataFrame you can see when you print it. If there are more than set no. of rows, it will show just the first few and last few.         
+     
+42. How to view current display_maxrows setting?
+Answer: Print  pd.get_option('display_maxrows') 
+
+43. How to set new display_maxrows setting? 
+Answer: Use;   pd.set_option('display_maxrows',20) #max.20 rows can be displayed.
+
+    to Reset to default;
+        Use;   pd.reset_option('display_rows')
+        
+44.what are Other such settings/options we can change?
+Answer:   
+      display.max_rows, display.max_columns, display.max_colwidth, display.float_format,
+      mode.use_inf_as_na : treat infinity as NAN
+  
+   Print; pd.describe_option() to get sumamry..  
+   
+ eg: pd.set_option('display.float_format','{:,}'.format)
+  # sets comma as thousands separator..
+  
+  
+                    Program-11:-
+
+45. How inplace parameter works in Pandas?
+Answer: When you set inplace=True, the operation changes the original data without needing to create a copy. If inplace=False (the default), it returns a new object, and the original remains unchanged. For example, with drop:
+     -- df.drop('column', axis=1, inplace=True) removes the column from df directly.
+     
+     -- new_df = df.drop('column', axis=1) keeps df unchanged and creates new_df with the column removed.
+    
+  if   inplace=False , operation must be returned to new variable.            
