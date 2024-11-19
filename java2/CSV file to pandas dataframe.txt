@@ -1,0 +1,11 @@
+
+To load a CSV file into Pandas Dataframe we use read_csv() function from Pandas library.
+
+
+import pandas as pd
+
+# Load a CSV file into a DataFrame
+df = pd.read_csv('file_path.csv')
+
+# Display the first few rows of the DataFrame
+print(df.head())

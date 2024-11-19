@@ -1,0 +1,24 @@
+**Consider the following data and create a data frame & details of its structure using pandas.
+Programming languages: Java, Python,  PHP , JavaScript,  C# ,C++
+Popularity   :  2.2 , 17.6, 8.8  ,8 , 7.7, 6.7
+
+
+
+import pandas as pd
+
+# Define the data
+data = {
+    "Programming Language": ["Java", "Python", "PHP", "JavaScript", "C#", "C++"],
+    "Popularity": [2.2, 17.6, 8.8, 8.0, 7.7, 6.7]
+}
+
+# Create a DataFrame
+df = pd.DataFrame(data)
+
+# Display the DataFrame
+print("DataFrame:")
+print(df)
+
+# Display the structure of the DataFrame
+print("\nDataFrame Structure:")
+print(df.info())
